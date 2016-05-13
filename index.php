@@ -177,20 +177,21 @@ function processMessage($message) {
 				'chat_id' => $chat_id, 
 				'text' => 'Hello', 
 				'reply_markup' => array(
-					'keyboard' => array(array(
-						'Hello', 'ТРЦ Gulliver',
-						'Ультрамарин',
-						'Большевик',
-						'Блокбастер',
-						'Sky Mall',
-						'Дрим Таун', 
-						'Караван', 
-						'De Luxe', 
-						'Украина', 
-						'ТРЦ Украина'
-					)),
+					'keyboard' => array(
+						array('Hello'),
+						array('ТРЦ Gulliver'),
+						array('Ультрамарин'),
+						array('Большевик'),
+						array('Блокбастер'),
+						array('Sky Mall'),
+						array('Дрим Таун'),
+						array('Караван'),
+						array('De Luxe'),
+						array('Украина'),
+						array('ТРЦ Украина'),
+					),
 					//'one_time_keyboard' => true,
-					//'resize_keyboard' => false
+					'resize_keyboard' => true
 				)
 			));
 		} else if ($text === 'Hello') {
