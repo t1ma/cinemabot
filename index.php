@@ -16,7 +16,7 @@ class Cinema {
 		
 		@$dom->loadHTML($html);
 		
-		$this->message .= trim($dom->getElementsByTagName('h2')->item(0)->nodeValue.' '.$dom->getElementsByTagName('h2')->item(0)->parentNode->getElementsByTagName('span')->item(1)->nodeValue).'\n\n';
+		$this->message .= trim($dom->getElementsByTagName('h2')->item(0)->nodeValue." ".$dom->getElementsByTagName('h2')->item(0)->parentNode->getElementsByTagName('span')->item(1)->nodeValue)."\n\n";
 		
 		$tables = $dom->getElementsByTagName('table');
 		$trs = $tables->item(1)->getElementsByTagName('tr');
@@ -26,10 +26,10 @@ class Cinema {
 		    $this->message .= trim($tds->item(0)->nodeValue);
 		    
 		    if ($tds->item(1)) {
-			    $this->message .= ' ';
+			    $this->message .= " ";
 			    $spans = $tds->item(1)->getElementsByTagName('span');
 			    foreach ($spans as $span) {
-					$this->message .= trim($span->nodeValue).' ';
+					$this->message .= trim($span->nodeValue)." ";
 			    }
 			    $this->message .= "\n";
 		    }
