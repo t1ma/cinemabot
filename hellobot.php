@@ -1,6 +1,5 @@
 <?php
-
-define('BOT_TOKEN', '12345678:replace-me-with-real-token');
+define('BOT_TOKEN', '185088638:AAH7orHM69bjf4USKIRtC-aHonpG2jKkOig');
 define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
 
 function apiRequestWebhook($method, $parameters) {
@@ -139,7 +138,7 @@ function processMessage($message) {
 }
 
 
-define('WEBHOOK_URL', 'https://my-site.example.com/secret-path-for-webhooks/');
+define('WEBHOOK_URL', 'https://jarviscinemabot.herokuapp.com/hellobot.php');
 
 if (php_sapi_name() == 'cli') {
   // if run from console, set or delete webhook
