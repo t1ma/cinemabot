@@ -190,7 +190,7 @@ function processMessage($message) {
 						array('Украина'),
 						array('ТРЦ Украина'),
 					),
-					//'one_time_keyboard' => true,
+					'one_time_keyboard' => true,
 					'resize_keyboard' => true
 				)
 			));
