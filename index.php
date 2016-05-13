@@ -180,7 +180,7 @@ function processMessage($message) {
 		} else if ($text === 'Hello') {
 			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'Nice to meet you'));
 		} else if ($text === 'ТРЦ Gulliver' || $text === 'Ультрамарин' || $text === 'Большевик' || $text === 'Блокбастер' || $text === 'Sky Mall' || $text === 'Дрим Таун' || $text === 'Караван' || $text === 'De Luxe' || $text === 'Украина' || $text === 'ТРЦ Украина') {
-			$cinema = new Cinema;
+			$cinema = new Cinema($text);
 			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => $cinema->message));
 		} else if (strpos($text, '/stop') === 0) {
 			// stop now
