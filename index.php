@@ -162,7 +162,7 @@ function processMessage($message) {
 	
 		if (strpos($text, "/start") === 0) {
 			apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'Hello', 'reply_markup' => array(
-				'keyboard' => array(array('Hello', 'Hi')),
+				'keyboard' => array(array('Hello', 'Hi', 'cinema')),
 				'one_time_keyboard' => true,
 				'resize_keyboard' => true)));
 		} else if ($text === "Hello" || $text === "Hi") {
