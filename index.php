@@ -173,10 +173,26 @@ function processMessage($message) {
 		$text = $message['text'];
 	
 		if (strpos($text, '/start') === 0) {
-			apiRequestJson('sendMessage', array('chat_id' => $chat_id, 'text' => 'Hello', 'reply_markup' => array(
-				'keyboard' => array(array('Hello', 'ТРЦ Gulliver', 'Ультрамарин', 'Большевик', 'Блокбастер', 'Sky Mall', 'Дрим Таун', 'Караван', 'De Luxe', 'Украина', 'ТРЦ Украина')),
-				'one_time_keyboard' => true,
-				'resize_keyboard' => false)));
+			apiRequestJson('sendMessage', array(
+				'chat_id' => $chat_id, 
+				'text' => 'Hello', 
+				'reply_markup' => array(
+					'keyboard' => array(array(
+						'Hello', 'ТРЦ Gulliver',
+						'Ультрамарин',
+						'Большевик',
+						'Блокбастер',
+						'Sky Mall',
+						'Дрим Таун', 
+						'Караван', 
+						'De Luxe', 
+						'Украина', 
+						'ТРЦ Украина'
+					)),
+					//'one_time_keyboard' => true,
+					//'resize_keyboard' => false
+				)
+			));
 		} else if ($text === 'Hello') {
 			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'Nice to meet you'));
 		} else if ($text === 'ТРЦ Gulliver' || $text === 'Ультрамарин' || $text === 'Большевик' || $text === 'Блокбастер' || $text === 'Sky Mall' || $text === 'Дрим Таун' || $text === 'Караван' || $text === 'De Luxe' || $text === 'Украина' || $text === 'ТРЦ Украина') {
