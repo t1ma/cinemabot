@@ -16,19 +16,19 @@ class Cinema {
 		
 		@$dom->loadHTML($html);
 		
-		$this->message .= $dom->getElementsByTagName('h2')->item(0)->nodeValue.' '.$dom->getElementsByTagName('h2')->item(0)->parentNode->getElementsByTagName('span')->item(1)->nodeValue."\n\n";
+		$this->message .= trim($dom->getElementsByTagName('h2')->item(0)->nodeValue.' '.$dom->getElementsByTagName('h2')->item(0)->parentNode->getElementsByTagName('span')->item(1)->nodeValue)."\n\n";
 		
 		$tables = $dom->getElementsByTagName('table');
 		$trs = $tables->item(1)->getElementsByTagName('tr');
 		
 		foreach ($trs as $tr) {
 		    $tds = $tr->getElementsByTagName('td');
-		    $this->message .= $tds->item(0)->nodeValue;
+		    $this->message .= trim($tds->item(0)->nodeValue);
 		    
 		    if ($tds->item(1)) {
 			    $spans = $tds->item(1)->getElementsByTagName('span');
 			    foreach ($spans as $span) {
-					$this->message .= $span->nodeValue.' ';
+					$this->message .= trim($span->nodeValue).' ';
 			    }
 			    $this->message .= "\n";
 		    }
