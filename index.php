@@ -1,9 +1,21 @@
 <?php
 class Cinema {
+	public $cinemaList = [
+		'ТРЦ Gulliver' => 'http://kinoafisha.ua/cinema/kiev/oskar-v-trc-Gulliver',
+		'Ультрамарин' => 'http://kinoafisha.ua/cinema/kiev/batterfljaj-ultramarin',
+		'Большевик' => 'http://kinoafisha.ua/cinema/kiev/bolshevik',
+		'Блокбастер' => 'http://kinoafisha.ua/cinema/kiev/blokbaster-kino',
+		'Sky Mall' => 'http://kinoafisha.ua/cinema/kiev/megapleks',
+		'Дрим Таун' => 'http://kinoafisha.ua/cinema/kiev/oscar',
+		'Караван' => 'http://kinoafisha.ua/cinema/kiev/multipleks-v-karavane',
+		'De Luxe' => 'http://kinoafisha.ua/cinema/kiev/batterfljaj-de-luxe',
+		'Украина' => 'http://kinoafisha.ua/cinema/kiev/ukraina-',
+		'ТРЦ Украина' => 'http://kinoafisha.ua/cinema/kiev/odessa-kino',
+	];
 	public $message;
 	
-	public function __construct() {
-		$url = "http://kinoafisha.ua/cinema/kiev/oskar-v-trc-Gulliver";
+	public function __construct($cinema) {
+		$url = $this->cinemaList[$cinema];
 		$ch = curl_init();
 		$timeout = 5;
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -16,7 +28,7 @@ class Cinema {
 		
 		@$dom->loadHTML($html);
 		
-		$this->message .= trim($dom->getElementsByTagName('h2')->item(0)->nodeValue." ".$dom->getElementsByTagName('h2')->item(0)->parentNode->getElementsByTagName('span')->item(1)->nodeValue)."\n\n";
+		$this->message .= trim($dom->getElementsByTagName('h2')->item(0)->nodeValue)." ".trim($dom->getElementsByTagName('h2')->item(0)->parentNode->getElementsByTagName('span')->item(1)->nodeValue)."\n\n";
 		
 		$tables = $dom->getElementsByTagName('table');
 		$trs = $tables->item(1)->getElementsByTagName('tr');
@@ -55,7 +67,7 @@ function apiRequestWebhook($method, $parameters) {
 		return false;
 	}
 	
-	$parameters["method"] = $method;
+	$parameters['method'] = $method;
 	
 	header("Content-Type: application/json");
 	echo json_encode($parameters);
@@ -140,7 +152,7 @@ function apiRequestJson($method, $parameters) {
 		return false;
 	}
 	
-	$parameters["method"] = $method;
+	$parameters['method'] = $method;
 	
 	$handle = curl_init(API_URL);
 	curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
@@ -160,23 +172,23 @@ function processMessage($message) {
 		// incoming text message
 		$text = $message['text'];
 	
-		if (strpos($text, "/start") === 0) {
-			apiRequestJson("sendMessage", array('chat_id' => $chat_id, "text" => 'Hello', 'reply_markup' => array(
-				'keyboard' => array(array('Hello', 'Hi', 'cinema')),
+		if (strpos($text, '/start') === 0) {
+			apiRequestJson('sendMessage', array('chat_id' => $chat_id, 'text' => 'Hello', 'reply_markup' => array(
+				'keyboard' => array(array('Hello', 'ТРЦ Gulliver', 'Ультрамарин', 'Большевик', 'Блокбастер', 'Sky Mall', 'Дрим Таун', 'Караван', 'De Luxe', 'Украина', 'ТРЦ Украина')),
 				'one_time_keyboard' => true,
 				'resize_keyboard' => true)));
-		} else if ($text === "Hello" || $text === "Hi") {
-			apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'Nice to meet you'));
-		} else if ($text === "cinema") {
+		} else if ($text === 'Hello') {
+			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'Nice to meet you'));
+		} else if ($text === 'ТРЦ Gulliver' || $text === 'Ультрамарин' || $text === 'Большевик' || $text === 'Блокбастер' || $text === 'Sky Mall' || $text === 'Дрим Таун' || $text === 'Караван' || $text === 'De Luxe' || $text === 'Украина' || $text === 'ТРЦ Украина') {
 			$cinema = new Cinema;
-			apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $cinema->message));
-		} else if (strpos($text, "/stop") === 0) {
+			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => $cinema->message));
+		} else if (strpos($text, '/stop') === 0) {
 			// stop now
 		} else {
-			apiRequestWebhook("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => 'Cool'));
+			apiRequestWebhook('sendMessage', array('chat_id' => $chat_id, 'reply_to_message_id' => $message_id, 'text' => 'Cool'));
 		}
 	} else {
-		apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'I understand only text messages'));
+		apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'I understand only text messages'));
 	}
 }
 
@@ -186,7 +198,7 @@ if (php_sapi_name() == 'cli') {
 	exit;
 }
 
-$content = file_get_contents("php://input");
+$content = file_get_contents('php://input');
 $update = json_decode($content, true);
 
 if (!$update) {
@@ -194,6 +206,6 @@ if (!$update) {
 	exit;
 }
 
-if (isset($update["message"])) {
-	processMessage($update["message"]);
+if (isset($update['message'])) {
+	processMessage($update['message']);
 }
