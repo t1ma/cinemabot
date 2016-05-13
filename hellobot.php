@@ -138,7 +138,7 @@ function processMessage($message) {
 }
 
 
-define('WEBHOOK_URL', 'https://jarviscinemabot.herokuapp.com/');
+define('WEBHOOK_URL', 'https://jarviscinemabot.herokuapp.com/hellobot.php');
 
 if (php_sapi_name() == 'cli') {
   // if run from console, set or delete webhook
