@@ -12,6 +12,7 @@ class Cinema {
 		'Украина' => 'http://kinoafisha.ua/cinema/kiev/ukraina-',
 		'ТРЦ Украина' => 'http://kinoafisha.ua/cinema/kiev/odessa-kino',
 	];
+	
 	public $message;
 	
 	public function __construct($cinema) {
@@ -178,7 +179,6 @@ function processMessage($message) {
 				'text' => "Добро пожаловать\nЯ бот Jarvis, я показываю расписание сеансов в кинотеатрах Киева",
 				'reply_markup' => array(
 					'keyboard' => array(
-						array('Hello'),
 						array('ТРЦ Gulliver'),
 						array('Ультрамарин'),
 						array('Большевик'),
@@ -194,8 +194,6 @@ function processMessage($message) {
 					'resize_keyboard' => true
 				)
 			));
-		} else if ($text === 'Hello') {
-			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => 'Nice to meet you'));
 		} else if ($text === 'ТРЦ Gulliver' || $text === 'Ультрамарин' || $text === 'Большевик' || $text === 'Блокбастер' || $text === 'Sky Mall' || $text === 'Дрим Таун' || $text === 'Караван' || $text === 'De Luxe' || $text === 'Украина' || $text === 'ТРЦ Украина') {
 			$cinema = new Cinema($text);
 			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => $cinema->message));
