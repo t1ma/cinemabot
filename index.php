@@ -176,7 +176,7 @@ function processMessage($message) {
 		if (strpos($text, '/start') === 0) {
 			apiRequestJson('sendMessage', array(
 				'chat_id' => $chat_id, 
-				'text' => "Добро пожаловать\nЯ бот Jarvis, я показываю расписание сеансов в кинотеатрах".json_decode('"\ud83c\udfa5"')." Киева",
+				'text' => "Добро пожаловать\nЯ бот Jarvis ".json_decode('"\ud83d\ude0e"').", я показываю расписание сеансов в кинотеатрах ".json_decode('"\ud83c\udfa5"')." Киева",
 				'reply_markup' => array(
 					'keyboard' => array(
 						array('ТРЦ Gulliver'),
