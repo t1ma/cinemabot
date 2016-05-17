@@ -203,11 +203,7 @@ function processMessage($message) {
 				'chat_id' => $chat_id, 
 				'text' => "Добро пожаловать!\nЯ бот Jarvis ".json_decode('"\ud83d\ude0e"').", я показываю расписание сеансов в кинотеатрах ".json_decode('"\ud83c\udfa5"')." Киева",
 				'reply_markup' => array(
-					'keyboard' => array(
-						array('test'),
-						array('test2'),
-						array('test3'),
-					),
+					'keyboard' => $keyboard,
 					'one_time_keyboard' => true,
 					'resize_keyboard' => true
 				)
