@@ -9,7 +9,6 @@
  */
 class Cinema {
 	public $cinemaList = [
-		'test' => '',
 		'ТРЦ Gulliver' => 'http://kinoafisha.ua/cinema/kiev/oskar-v-trc-Gulliver',
 		'Ультрамарин' => 'http://kinoafisha.ua/cinema/kiev/batterfljaj-ultramarin',
 		'Большевик' => 'http://kinoafisha.ua/cinema/kiev/bolshevik',
