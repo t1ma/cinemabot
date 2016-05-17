@@ -204,7 +204,9 @@ function processMessage($message) {
 				'text' => "Добро пожаловать!\nЯ бот Jarvis ".json_decode('"\ud83d\ude0e"').", я показываю расписание сеансов в кинотеатрах ".json_decode('"\ud83c\udfa5"')." Киева",
 				'reply_markup' => array(
 					'keyboard' => array(
-						$keyboard
+						array('test'),
+						array('test2'),
+						array('test3'),
 					),
 					'one_time_keyboard' => true,
 					'resize_keyboard' => true
