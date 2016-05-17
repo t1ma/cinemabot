@@ -193,7 +193,7 @@ function processMessage($message) {
 		
 		$keyboard = array();
 		
-		foreach ($cinema->getCinemaList() as $name) {
+		foreach ($cinema->getCinemaList() as $name => $url) {
 			$keyboard[] = array($name);	
 		}
 	
