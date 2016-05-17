@@ -194,7 +194,7 @@ function processMessage($message) {
 		$keyboard = array();
 		
 		foreach ($cinema->getCinemaList() as $name => $url) {
-			$keyboard[] = array($name);	
+			$keyboard[] = array(array($name));
 		}
 	
 		if (strpos($text, '/start') === 0) {
