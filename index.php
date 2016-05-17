@@ -9,6 +9,7 @@
  */
 class Cinema {
 	public $cinemaList = [
+		'test' => '',
 		'ТРЦ Gulliver' => 'http://kinoafisha.ua/cinema/kiev/oskar-v-trc-Gulliver',
 		'Ультрамарин' => 'http://kinoafisha.ua/cinema/kiev/batterfljaj-ultramarin',
 		'Большевик' => 'http://kinoafisha.ua/cinema/kiev/bolshevik',
@@ -194,7 +195,7 @@ function processMessage($message) {
 		$keyboard = array();
 		
 		foreach ($cinema->getCinemaList() as $name => $url) {
-			$keyboard[] = array(array($name));
+			$keyboard[] = array($name);	
 		}
 	
 		if (strpos($text, '/start') === 0) {
