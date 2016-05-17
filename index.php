@@ -1,4 +1,12 @@
 <?php
+/**
+ * Jarvis Cinema Bot for Telegram
+ * get information about seances from http://kinoafisha.ua/
+ *
+ *
+ * @author T1m_One <barkhatov.inc@gmail.com>
+ * @version 1.0
+ */
 class Cinema {
 	public $cinemaList = [
 		'ТРЦ Gulliver' => 'http://kinoafisha.ua/cinema/kiev/oskar-v-trc-Gulliver',
@@ -14,8 +22,12 @@ class Cinema {
 	];
 	
 	public $message;
+		
+	public function getCinemaList() {
+		return $this->cinemaList;
+	}
 	
-	public function __construct($cinema) {
+	public function getSeances($cinema) {
 		$url = $this->cinemaList[$cinema];
 		$ch = curl_init();
 		$timeout = 5;
@@ -48,6 +60,10 @@ class Cinema {
 		    }
 		    $this->message .= "\n";
 		}
+	}
+	
+	public function getMessage() {
+		return $this->message;
 	}
 }
 
@@ -172,6 +188,14 @@ function processMessage($message) {
 	if (isset($message['text'])) {
 		// incoming text message
 		$text = $message['text'];
+		
+		$cinema = new Cinema;
+		
+		$keyboard = array();
+		
+		foreach ($cinema->getCinemaList() as $name) {
+			$keyboard[] = array($name);	
+		}
 	
 		if (strpos($text, '/start') === 0) {
 			apiRequestJson('sendMessage', array(
@@ -179,24 +203,15 @@ function processMessage($message) {
 				'text' => "Добро пожаловать!\nЯ бот Jarvis ".json_decode('"\ud83d\ude0e"').", я показываю расписание сеансов в кинотеатрах ".json_decode('"\ud83c\udfa5"')." Киева",
 				'reply_markup' => array(
 					'keyboard' => array(
-						array('ТРЦ Gulliver'),
-						array('Ультрамарин'),
-						array('Большевик'),
-						array('Блокбастер'),
-						array('Sky Mall'),
-						array('Дрим Таун'),
-						array('Караван'),
-						array('De Luxe'),
-						array('Украина'),
-						array('ТРЦ Украина'),
+						$keyboard
 					),
 					'one_time_keyboard' => true,
 					'resize_keyboard' => true
 				)
 			));
-		} else if ($text === 'ТРЦ Gulliver' || $text === 'Ультрамарин' || $text === 'Большевик' || $text === 'Блокбастер' || $text === 'Sky Mall' || $text === 'Дрим Таун' || $text === 'Караван' || $text === 'De Luxe' || $text === 'Украина' || $text === 'ТРЦ Украина') {
-			$cinema = new Cinema($text);
-			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => $cinema->message));
+		} else if (array_key_exists($text, $cinema->getCinemaList())) {
+			$cinema->getSeances($text);
+			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => $cinema->getMessage()));
 		} else if (strpos($text, '/stop') === 0) {
 			// stop now
 		} else {
