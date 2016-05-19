@@ -48,7 +48,7 @@ class Cinema {
 		
 		foreach ($trs as $tr) {
 		    $tds = $tr->getElementsByTagName('td');
-		    $this->message .= trim($tds->item(0)->nodeValue);
+		    $this->message .= '<b>'.trim($tds->item(0)->nodeValue).'</b>';
 		    
 		    if ($tds->item(1)) {
 			    $this->message .= " ";
