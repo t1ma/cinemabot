@@ -41,7 +41,7 @@ class Cinema {
 		
 		@$dom->loadHTML($html);
 		
-		$this->message .= trim($dom->getElementsByTagName('h2')->item(0)->nodeValue)." ".trim($dom->getElementsByTagName('h2')->item(0)->parentNode->getElementsByTagName('span')->item(1)->nodeValue)."\n\n";
+		$this->message .= '<b>'.trim($dom->getElementsByTagName('h2')->item(0)->nodeValue)." ".trim($dom->getElementsByTagName('h2')->item(0)->parentNode->getElementsByTagName('span')->item(1)->nodeValue)."</b>\n\n";
 		
 		$tables = $dom->getElementsByTagName('table');
 		$trs = $tables->item(1)->getElementsByTagName('tr');
@@ -209,7 +209,7 @@ function processMessage($message) {
 			));
 		} else if (array_key_exists($text, $cinema->getCinemaList())) {
 			$cinema->getSeances($text);
-			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => $cinema->getMessage()));
+			apiRequest('sendMessage', array('chat_id' => $chat_id, 'text' => $cinema->getMessage(), 'parse_mode' => 'HTML'));
 		} else if (strpos($text, '/stop') === 0) {
 			// stop now
 		} else {
