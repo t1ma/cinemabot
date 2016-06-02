@@ -33,6 +33,7 @@ class Cinema {
 		$timeout = 5;
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 		$html = curl_exec($ch);
 		curl_close($ch);
@@ -41,7 +42,7 @@ class Cinema {
 		
 		@$dom->loadHTML($html);
 		
-		$this->message .= '<b>'.trim($dom->getElementsByTagName('h2')->item(0)->nodeValue)." ".trim($dom->getElementsByTagName('h2')->item(0)->parentNode->getElementsByTagName('span')->item(1)->nodeValue)."</b>\n\n";
+		$this->message .= '<b>' . trim($dom->getElementsByTagName('h2')->item(0)->nodeValue) . " " . trim($dom->getElementsByTagName('h2')->item(0)->parentNode->getElementsByTagName('span')->item(1)->nodeValue) . "</b>\n\n";
 		
 		$tables = $dom->getElementsByTagName('table');
 		$trs = $tables->item(1)->getElementsByTagName('tr');
@@ -50,7 +51,7 @@ class Cinema {
 		    $tds = $tr->getElementsByTagName('td');
 		    
 		    if (!$tds->item(1)) {
-			    $this->message .= '<b>'.trim($tds->item(0)->nodeValue).'</b>';
+			    $this->message .= '<b>' . trim($tds->item(0)->nodeValue) . '</b>';
 		    } else {
 			    $this->message .= trim($tds->item(0)->nodeValue);
 		    }
@@ -59,7 +60,7 @@ class Cinema {
 			    $this->message .= " ";
 			    $spans = $tds->item(1)->getElementsByTagName('span');
 			    foreach ($spans as $span) {
-					$this->message .= trim($span->nodeValue)." ";
+					$this->message .= trim($span->nodeValue) . " ";
 			    }
 			    $this->message .= "\n";
 		    }
@@ -73,7 +74,7 @@ class Cinema {
 }
 
 define('BOT_TOKEN', '185088638:AAH7orHM69bjf4USKIRtC-aHonpG2jKkOig');
-define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
+define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
 define('WEBHOOK_URL', 'https://jarviscinemabot.herokuapp.com/');
 
 function apiRequestWebhook($method, $parameters) {
@@ -151,7 +152,7 @@ function apiRequest($method, $parameters) {
 			$val = json_encode($val);
 		}
 	}
-	$url = API_URL.$method.'?'.http_build_query($parameters);
+	$url = API_URL . $method . '?' . http_build_query($parameters);
 	
 	$handle = curl_init($url);
 	curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
@@ -205,7 +206,7 @@ function processMessage($message) {
 		if (strpos($text, '/start') === 0) {
 			apiRequestJson('sendMessage', array(
 				'chat_id' => $chat_id, 
-				'text' => "Добро пожаловать!\nЯ бот Jarvis ".json_decode('"\ud83d\ude0e"').", я показываю расписание сеансов в кинотеатрах ".json_decode('"\ud83c\udfa5"')." Киева",
+				'text' => "Добро пожаловать!\nЯ бот Jarvis " . json_decode('"\ud83d\ude0e"') . ", я показываю расписание сеансов в кинотеатрах " . json_decode('"\ud83c\udfa5"') . " Киева",
 				'reply_markup' => array(
 					'keyboard' => $keyboard,
 					'one_time_keyboard' => true,
